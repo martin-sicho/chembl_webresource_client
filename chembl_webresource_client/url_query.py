@@ -233,7 +233,10 @@ class UrlQuery(Query):
             return
         available_formats = self.model.formats or ('json', 'xml')
         if frmt not in available_formats:
-            raise Exception('{0} is not an available format ({1})'.format(frmt, available_formats))
+            if frmt == 'svg+xml':
+                frmt = 'xml'
+            else:
+                raise Exception('{0} is not an available format ({1})'.format(frmt, available_formats))
         self.frmt = frmt
         self.rewind()
 
